@@ -12,9 +12,9 @@ const publicDirPath = path.join(__dirname, '../public');
 
 app.use(express.static(publicDirPath));
 
-app.get('/', (req, res) => {
-    res.send(`Hello Chat`)
-})
+io.on('connection', () => {
+    console.log(`New WebSocket Connection`);
+});
 
 server.listen(PORT, () => {
     console.log(`Server is up on Port : ${PORT}`);
