@@ -15,6 +15,8 @@ send_msg_btn.addEventListener('click', (e) => {
     socket.emit('sendMessage', data, (error) => {
         text_msg.disabled = false;
         send_msg_btn.disabled = false;
+        text_msg.value = '';
+        text_msg.focus();
         if(error){
             return console.log(error);
         }
