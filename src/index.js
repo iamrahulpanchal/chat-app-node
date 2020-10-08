@@ -22,6 +22,10 @@ io.on('connection', (socket) => {
         io.emit('message', msg)
     });
 
+    socket.on('sendLocation', (coords) => {
+        io.emit('message', `Lat : ${coords.latitude}, Lon : ${coords.longitude}`);
+    })
+
     socket.on('disconnect', () => {
         io.emit('message', 'User Disconnected');
     });
