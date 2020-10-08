@@ -3,10 +3,17 @@ const socket = io();
 const text_msg = document.querySelector('#text_msg');
 const send_msg_btn = document.querySelector('#send_msg');
 const share_loc_btn = document.querySelector('#share_location');
+const messages = document.querySelector('#messages');
 
-socket.on('message', (text) => {
-    console.log(text);
-})
+const messageTemplate = document.querySelector('#message-template').innerHTML;
+
+socket.on('message', (message) => {
+    console.log(message);
+    const html = Mustache.render(messageTemplate, {
+        message: message
+    });
+    messages.insertAdjacentHTML('beforeend', html);
+});
 
 send_msg_btn.addEventListener('click', (e) => {
     const data = text_msg.value;
