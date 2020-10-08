@@ -6,6 +6,15 @@ const share_loc_btn = document.querySelector('#share_location');
 const messages = document.querySelector('#messages');
 
 const messageTemplate = document.querySelector('#message-template').innerHTML;
+const locationTemplate = document.querySelector('#location-template').innerHTML;
+
+socket.on('locationMessage', (locMessage) => {
+    // console.log(`Inside LocMsg : ${locMessage}`);
+    const html = Mustache.render(locationTemplate, {
+        locLink: locMessage
+    });
+    messages.insertAdjacentHTML('beforeend', html);
+});
 
 socket.on('message', (message) => {
     console.log(message);
