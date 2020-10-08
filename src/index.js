@@ -18,8 +18,9 @@ io.on('connection', (socket) => {
     socket.emit('message', 'Welcome to Socket');
     socket.broadcast.emit('message', 'New User Joined');
 
-    socket.on('sendMessage', (msg) => {
+    socket.on('sendMessage', (msg, callback) => {
         io.emit('message', msg)
+        callback('Delivered!');
     });
 
     socket.on('sendLocation', (coords) => {

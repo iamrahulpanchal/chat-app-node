@@ -6,7 +6,9 @@ socket.on('message', (text) => {
 
 document.querySelector('#send_msg').addEventListener('click', (e) => {
     const data = document.querySelector('#text_msg').value;
-    socket.emit('sendMessage', data);
+    socket.emit('sendMessage', data, (ack) => {
+        console.log(`Message `, ack);
+    });
 });
 
 document.querySelector('#share_location').addEventListener('click', (e) => {
