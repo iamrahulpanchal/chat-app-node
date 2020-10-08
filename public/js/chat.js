@@ -6,8 +6,11 @@ socket.on('message', (text) => {
 
 document.querySelector('#send_msg').addEventListener('click', (e) => {
     const data = document.querySelector('#text_msg').value;
-    socket.emit('sendMessage', data, (ack) => {
-        console.log(`Message `, ack);
+    socket.emit('sendMessage', data, (error) => {
+        if(error){
+            return console.log(error);
+        }
+        console.log(`Message Delivered!`);
     });
 });
 
