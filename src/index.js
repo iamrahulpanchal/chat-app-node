@@ -14,10 +14,17 @@ app.use(express.static(publicDirPath));
 
 io.on('connection', (socket) => {
     console.log(`New WebSocket Connection`);
+
     socket.emit('message', 'Welcome to Socket');
+    socket.broadcast.emit('message', 'New User Joined');
+
     socket.on('sendMessage', (msg) => {
         io.emit('message', msg)
-    })
+    });
+
+    socket.on('disconnect', () => {
+        io.emit('message', 'User Disconnected');
+    });
 });
 
 server.listen(PORT, () => {
