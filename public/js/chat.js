@@ -9,9 +9,10 @@ const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationTemplate = document.querySelector('#location-template').innerHTML;
 
 socket.on('locationMessage', (locMessage) => {
-    // console.log(`Inside LocMsg : ${locMessage}`);
+    console.log(locMessage);
     const html = Mustache.render(locationTemplate, {
-        locLink: locMessage
+        locLink: locMessage.locLink,
+        createdAt: moment(locMessage.createdAt).format('hh:mm a')
     });
     messages.insertAdjacentHTML('beforeend', html);
 });

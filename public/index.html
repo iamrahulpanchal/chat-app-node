@@ -12,8 +12,11 @@
     <div  id="messages">
     </div>
 
-    <input type="text" id="text_msg">
-    <button id="send_msg" placeholder="Message">Send</button>
+    <form id="message-form">
+        <input type="text" id="text_msg">
+        <button id="send_msg" placeholder="Message">Send</button>
+    </form>
+
     <button id="share_location">Share Location</button>
 
     <script id="message-template" type="text/html">
@@ -24,7 +27,7 @@
 
     <script id="location-template" type="text/html">
         <div>
-            <a href={{locLink}} target="_blank">My Current Location</a>
+            <p>{{createdAt}} - <a href={{locLink}} target="_blank">My Current Location</a></p>
         </div>
     </script>
 
