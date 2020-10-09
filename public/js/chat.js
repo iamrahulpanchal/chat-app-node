@@ -7,12 +7,12 @@ const messages = document.querySelector('#messages');
 
 const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationTemplate = document.querySelector('#location-template').innerHTML;
+const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML;
 
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 // console.log(username, room);
 
 socket.on('locationMessage', (locMessage) => {
-    console.log(locMessage);
     const html = Mustache.render(locationTemplate, {
         username: locMessage.username,
         locLink: locMessage.locLink,
@@ -22,13 +22,20 @@ socket.on('locationMessage', (locMessage) => {
 });
 
 socket.on('message', (message) => {
-    console.log(message);
     const html = Mustache.render(messageTemplate, {
         username: message.username,
         message: message.text,
         createdAt: moment(message.createdAt).format('hh:mm a')
     });
     messages.insertAdjacentHTML('beforeend', html);
+});
+
+socket.on('roomData', ({ room, users }) => {
+    const html = Mustache.render(sidebarTemplate, {
+        room,
+        users
+    });
+    document.querySelector('#sidebar').innerHTML = html;
 });
 
 send_msg_btn.addEventListener('click', (e) => {
