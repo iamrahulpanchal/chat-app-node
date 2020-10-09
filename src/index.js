@@ -44,14 +44,14 @@ io.on('connection', (socket) => {
             return callback('Profanity is Not Allowed');
         }
 
-        io.to(user.room).emit('message', generateMessage(msg));
+        io.to(user.room).emit('message', generateMessage(user.username, msg));
         callback();
     });
 
     socket.on('sendLocation', (coords, callback) => {
         const user = getUser(socket.id);
 
-        io.to(user.room).emit('locationMessage', generateLocationMessage(`https://google.com/maps/?q=${coords.latitude},${coords.longitude}`));
+        io.to(user.room).emit('locationMessage', generateLocationMessage(user.username, `https://google.com/maps/?q=${coords.latitude},${coords.longitude}`));
         callback();
     })
 
@@ -59,7 +59,7 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id);
 
         if(user){
-            io.to(user.room).emit('message', generateMessage(`${user.username} Disconnected`));
+            io.to(user.room).emit('message', generateMessage(user.username, `${user.username} has left!`));
         }
     });
 });
