@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
         if(filter.isProfane(msg)){
             return callback('Profanity is Not Allowed');
         }
-        io.emit('message', generateMessage(msg));
+        io.to('Test').emit('message', generateMessage(msg));
         callback();
     });
 
